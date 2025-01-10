@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostsController;
+use App\Models\Barangs;
+use App\Http\Controllers\SiswasController;
+use App\Http\Controllers\PpdbController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -52,13 +58,13 @@ Route::get('/hitung/{b1}/{b2}', function ($bilangan1,$bilangan2){
     return "Bilangan 1 : ".$bilangan1."<br>".
            "Bilangan 2 : ".$bilangan2."<br>".
            "Hasil : ".$hasil = $bilangan1 + $bilangan2;
-        
+
 });
 
 //LATIHAN
 
 Route::get('/latihan/{nama}/{telepon}/{jenisbarang}/{namabarang}/{pembayaran}/{jumlah}', function($nama,$tlp,$jenisbrg,$namabrg,$pembayaran,$jumlah){
-      
+
     //HP
     if ($jenisbrg == "handphone") {
         if ($namabrg =="poco") {
@@ -112,7 +118,7 @@ Route::get('/latihan/{nama}/{telepon}/{jenisbarang}/{namabarang}/{pembayaran}/{j
     }else {
         $chasback = 0;
     }
-    
+
     if ($pembayaran == "transfer"){
         $potongan = 50000;
     }else{
@@ -133,10 +139,46 @@ Route::get('/latihan/{nama}/{telepon}/{jenisbarang}/{namabarang}/{pembayaran}/{j
               "-----------------------------------<br>".
               "Total :"."$total"."<br>".
               "chasback :"."$chasback"."<br>".
-              "pembayaran :"."$pembayaran"."<br>". 
-              "potongan :"."$potongan"."<br>". 
+              "pembayaran :"."$pembayaran"."<br>".
+              "potongan :"."$potongan"."<br>".
               "-----------------------------------<br>".
               "total pembayaran ".$total_byr;
-});                 
+});
 
 
+//routing dengan model
+//post
+// route::get('/post', function () {
+//     $post = post::all();
+
+//     return view('tampil_post',compact('post'));
+
+// });
+
+
+//barangs
+// route::get('/barangs', function () {
+//     //menampilkan berdasarkan id
+//     // $barangs = barangs::where('id',1)->get();
+
+//     //menampilkan berdasarkan kata
+//     $barangs = barangs::where('merk','LIKE','%nik%')->get();
+//     return view('tampil_barangs',compact('barangs'));
+
+// });
+
+Route::get('/post', [PostsController::class, 'menampilkan']);
+Route::get('/barangs', [PostsController::class, 'menampilkan2']);
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+//CRUD SISWA
+Route::resource('/siswa', SiswasController::class);
+
+//CRUD PPDB
+Route::resource('/ppdb', PpdbController::class);

@@ -18,10 +18,12 @@ class PostsTableSeeder extends Seeder
         $posts = [
             ['title'=>'Tips Cepet tidur','content'=>'lorem ipsum'],
             ['title'=>'Haruskah Menunda Belajar?','content'=>'lorem ipsum'],
-            ['title'=>'Mebangun Visi Misi Kesuksesan','content'=>'lorem ipsum']
+            ['title'=>'Mebangun Visi Misi Kesuksesan','content'=>'lorem ipsum'],
+
         ];
 
         //memasukan data ke database
         DB::table('posts')->insert($posts);
+
     }
 }
